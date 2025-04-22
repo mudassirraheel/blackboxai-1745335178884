@@ -7,78 +7,70 @@ Built by https://www.blackbox.ai
 # User Workspace
 
 ## Project Overview
-User Workspace is a Node.js application that provides a simple server to generate unique tracking links. The application uses Express.js to handle HTTP requests, and it allows users to generate a tracking link which can then be used to serve a tracking page. This is mainly intended for demonstration purposes and showcases basic link generation with UUIDs.
+User Workspace is a simple Node.js application that generates unique tracking links using Express.js and UUID. The application serves a static HTML page for tracking links that were generated, providing an easy way to create and access these links. This project is intended for demonstration and educational purposes.
 
 ## Installation
 
-To get started with User Workspace, follow these steps:
+To set up this project locally, follow these steps:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/user-workspace.git
+   git clone <repository-url>
    cd user-workspace
    ```
 
-2. **Install the dependencies**:
-   Make sure you have [Node.js](https://nodejs.org/) installed, then run:
+2. **Install dependencies**:
+   Make sure you have [Node.js](https://nodejs.org/) installed. Then run:
    ```bash
    npm install
    ```
 
+3. **Start the server**:
+   Once the dependencies are installed, start the server with:
+   ```bash
+   npm start
+   ```
+
+   The application will be running at `http://localhost:3000`.
+
 ## Usage
 
-Once installed, you can start the server with the following command:
-
-```bash
-npm start
-```
-
-The server will run on `http://localhost:3000`. You can generate a unique tracking link by navigating to the following endpoint in your browser:
-
-```
-http://localhost:3000/generate-link
-```
-
-Once you have the link, you can use it to access the tracking page by visiting:
-```
-http://localhost:3000/track/{id}
-```
-Replace `{id}` with the specific UUID that you received from the previous endpoint.
+To generate a unique tracking link, navigate to `http://localhost:3000/generate-link` in your web browser. This will return a JSON response containing your newly generated link. You can use this link to access the tracking page at `http://localhost:3000/track/{id}`, where `{id}` is the unique identifier returned in the previous step.
 
 ## Features
 
-- **Generate Unique Links**: Automatically generate a unique tracking link using UUIDs.
-- **Track Links**: Serve a specific tracking page when the unique link is accessed.
-- **In-Memory Storage**: Stores generated links in a Set for quick validation (suitable for demo purposes).
+- Generate unique tracking links.
+- Serve static HTML page for link tracking.
+- Validate links ensuring that only existing links can be accessed.
 
 ## Dependencies
 
-The project uses the following dependencies, as listed in `package.json`:
+This project relies on the following dependencies found in the `package.json` file:
 
-- [`express`](https://www.npmjs.com/package/express): A minimal and flexible Node.js web application framework.
-- [`uuid`](https://www.npmjs.com/package/uuid): A library to generate unique identifiers (UUIDs).
+- **Express**: A minimal and flexible Node.js web application framework for building web applications.
+- **UUID**: A library for generating unique identifiers based on a standard algorithm.
 
-Install these and any other dependencies by running:
-
-```bash
-npm install
+```json
+"dependencies": {
+  "express": "^5.1.0",
+  "uuid": "^11.1.0"
+}
 ```
 
 ## Project Structure
 
 ```
 user-workspace/
-├── node_modules/          # Node.js packages installed by npm
-├── public/                # Directory for public assets (like HTML files)
-│   └── track.html         # The tracking page served for valid links
-├── package.json           # Project metadata and dependencies
-├── package-lock.json      # Locked versions of dependencies
-└── server.js              # Main server file
+│
+├── public/
+│   └── track.html             # HTML page for tracking links
+│
+├── server.js                  # Main server file
+│
+├── package.json               # Project metadata and dependencies
+│
+└── package-lock.json          # Lock file for exact dependency versions
 ```
 
-In the above structure, `server.js` contains the core application logic, while the `public` directory is used for any static files that the server serves.
-
-## License
-
-This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
+Feel free to customize and expand this project based on your needs!
 ```
