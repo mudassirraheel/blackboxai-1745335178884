@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Location Tracker - Track Location</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col items-center justify-center p-4">
+  <div class="bg-white rounded-lg shadow-lg p-8 max-w-md w-full text-center">
+    <h1 class="text-2xl font-semibold mb-6">Tracking Location</h1>
+    <p id="status" class="mb-4 text-gray-700">Requesting location permission...</p>
+    <div id="location" class="text-gray-800 font-medium"></div>
+    <div id="map" class="mt-6 w-full h-64 rounded-md shadow-md hidden"></div>
+  </div>
+
+  <script>
+    const statusEl = document.getElementById('status');
+    const locationEl = document.getElementById('location');
+    const mapEl = document.getElementById('map');
+
+    function showMap(lat, lon) {
+      const mapUrl = 'https://www.openstreetmap.org/export/embed.html?bbox=' + (lon-0.01) + '%2C' + (lat-0.01) + '%2C' + (lon+0.01) + '%2C' + (lat+0.01) + '&layer=mapnik&marker=' + lat + '%2C' + lon;
+      mapEl.innerHTML = '<iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="' + mapUrl + '"></iframe>';
+      mapEl.classList.remove('hidden');
+    }
+
+    function success(position) {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      statusEl.textContent = 'Location found:';
+      locationEl.textContent = 'Latitude: ' + latitude.toFixed(6) + ', Longitude: ' + longitude.toFixed(6);
+      showMap(latitude, longitude);
+    }
+
+    function error() {
+      statusEl.textContent = 'Unable to retrieve your location.';
+      locationEl.textContent = '';
+    }
+
+    if (!navigator.geolocation) {
+      statusEl.textContent = 'Geolocation is not supported by your browser.';
+    } else {
+      navigator.geolocation.getCurrentPosition(success, error);
+    }
+  </script>
+</body>
+</html>
